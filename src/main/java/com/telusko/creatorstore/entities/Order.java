@@ -1,5 +1,6 @@
 package com.telusko.creatorstore.entities;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.telusko.creatorstore.enums.Status;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.DecimalMin;
@@ -10,6 +11,7 @@ import lombok.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -23,8 +25,10 @@ public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @OneToMany(mappedBy = "order")
-    private List<OrderItem> items;
+    @OneToMany(mappedBy = "order",cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
+    @Builder.Default
+    private List<OrderItem> items= new ArrayList<>();
     @NotBlank
     @Column(name = "customer_name", nullable = false)
     private String customerName;

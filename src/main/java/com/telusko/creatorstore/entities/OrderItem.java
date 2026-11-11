@@ -1,5 +1,6 @@
 package com.telusko.creatorstore.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.Min;
@@ -28,8 +29,8 @@ public class OrderItem {
     @Min(value = 1, message = "Quantity should be at least 1")
     private Integer quantity;
 
-    //TODO:relations
     @ManyToOne(fetch = FetchType.LAZY)
+    @JsonBackReference
     @JoinColumn(name = "order_id", referencedColumnName = "id", nullable = false)
     private Order order;
 

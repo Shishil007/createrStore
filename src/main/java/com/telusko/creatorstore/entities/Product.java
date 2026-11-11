@@ -36,8 +36,6 @@ public class Product {
     @NotNull(message = "Stock Quantity is required")
     private Integer stockQuantity;
 
-
-    //TODO: relations
     @JsonIgnore
     @OneToMany(mappedBy = "product")
     private List<OrderItem> orderItem;
